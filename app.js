@@ -30,9 +30,23 @@ const promptUser = () => {
             }
         },
         {
+            type: 'confirm',
+            name: 'confirmAbout',
+            message: 'Would you like to enter some info about yourself for an "About" section?',
+            default: true
+        },
+        {
             type: 'input',
             name: 'about',
-            message: 'Provide some information about yourself:'
+            message: 'Provide some information about yourself:',
+            // when gets the user's answers passed to it automatically, will only prompt this if true
+            when: ({ confirmAbout }) => {
+                if (confirmAbout){
+                    return true;
+                } else {
+                    return false;
+                }
+            }
         }
     ]);
 };
@@ -123,6 +137,8 @@ promptUser()
     .then(portfolioData => {
         console.log(portfolioData);
     });
+
+
 
 
 // // saves core fs module to variable for use in file
