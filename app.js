@@ -1,18 +1,34 @@
-// saves core fs module to variable for use in file
-const fs = require('fs');
+// saves inquirer package for use
+const inquirer = require('inquirer');
 
-// save local module as variable
-const generatePage = require('./src/page-template.js');
+inquirer
+    .prompt([{
+        type: 'input',
+        name: 'name',
+        message: 'What is your name?'
+    }
+    ])
+    .then(answers => console.log(answers));
 
-// using a single arguement of 2 is the same as writing (2, profileDataArgs.length)
-const profileDataArgs = process.argv.slice(2);
+// // saves core fs module to variable for use in file
+// const fs = require('fs');
 
-// destructured assignment
-const [name, github] = profileDataArgs;
+// // save local module as variable
+// const generatePage = require('./src/page-template.js');
 
-// create/replace specified file (set to replace using './index.html' which is a newly created file)
-fs.writeFile('./index.html', generatePage(name, github), err => {
-    if (err) throw err;
+// const pageHTML = generatePage(name, github);
 
-    console.log('Portfolio complete! Check out index.html to see the output!');
-});
+// // create/replace specified file (set to replace using './index.html' which is a newly created file)
+// fs.writeFile('./index.html', generatePage(name, github), err => {
+//     if (err) throw err;
+
+//     console.log('Portfolio complete! Check out index.html to see the output!');
+// });
+
+// // using a single arguement of 2 is the same as writing (2, profileDataArgs.length)
+// const profileDataArgs = process.argv.slice(2);
+
+// // destructured assignment
+// const [name, github] = profileDataArgs;
+
+

@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "inquirer": "^8.2.2"
+  },
+  "name": "portfolio-generator",
+  "description": "",
+  "version": "1.0.0",
+  "main": "app.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blindsweatyhansolo/portfolio-generator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blindsweatyhansolo/portfolio-generator/issues"
+  },
+  "homepage": "https://github.com/blindsweatyhansolo/portfolio-generator#readme"
+}
