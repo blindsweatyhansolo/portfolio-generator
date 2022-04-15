@@ -1,9 +1,9 @@
-// saves core fs module to variable for use in file
-const fs = require('fs');
 // saves inquirer package for use
 const inquirer = require('inquirer');
-// save local module as variable
+// save generatePage module as variable for use
 const generatePage = require('./src/page-template');
+// save generate-site module as variable for use
+const { writeFile, copyFile } = require('./utils/generate-site.js');
 
 const promptUser = () => {
     return inquirer
@@ -141,11 +141,19 @@ const promptProject = portfolioData => {
 promptUser()
     .then(promptProject)
     .then(portfolioData => {
-        const pageHTML = generatePage(portfolioData);
-
-        fs.writeFile('./index.html', pageHTML, err => {
-            if (err) throw new Error(err);
-
-            console.log('Page created! Check out index.html to see it!');
-            });
+        return generatePage(portfolioData);
+    })
+    .then(pageHTML => {
+        return writeFile(pageHTML);
+    })
+    .then(writeFileResponse => {
+        console.log(writeFileResponse);
+        return copyFile();
+    })
+    .then(copyFileResponse => {
+        console.log(copyFileResponse);
+    })
+    .catch(err => {
+        console.log(err)
     });
+
