@@ -1,18 +1,16 @@
 // saves core fs module to variable for use in file
 const fs = require('fs');
-
-// save local module as variable
-const generatePage = require('./src/page-template');
-
 // saves inquirer package for use
 const inquirer = require('inquirer');
+// save local module as variable
+const generatePage = require('./src/page-template');
 
 const promptUser = () => {
     return inquirer
         .prompt([{
             type: 'input',
             name: 'name',
-            message: 'What is your name?',
+            message: 'What is your name? (Required)',
             validate: nameInput => {
                 if (nameInput){
                     return true;
@@ -25,7 +23,7 @@ const promptUser = () => {
         {
             type: 'input',
             name: 'github',
-            message: 'Enter your GitHub username',
+            message: 'Enter your GitHub username (Required)',
             validate: githubInput => {
                 if (githubInput){
                     return true;
@@ -46,32 +44,34 @@ const promptUser = () => {
             name: 'about',
             message: 'Provide some information about yourself:',
             // when gets the user's answers passed to it automatically, will only prompt this if true
-            when: ({ confirmAbout }) => {
-                if (confirmAbout){
-                    return true;
-                } else {
-                    return false;
-                }
-            }
+            when: ({ confirmAbout }) => confirmAbout
+            // when: ({ confirmAbout }) => {
+            //     if (confirmAbout){
+            //         return true;
+            //     } else {
+            //         return false;
+            //     }
+            // }
         }
     ]);
 };
 
 const promptProject = portfolioData => {
-    if (!portfolioData.projects){
-        portfolioData.projects = [];
-    }
-
     console.log(`
     ===============
     Add a New Project
     ===============
     `);
+
+    if (!portfolioData.projects){
+        portfolioData.projects = [];
+    }
+
     return inquirer.prompt([
         {
             type: 'input',
             name: 'name',
-            message: 'What is the name of your project?',
+            message: 'What is the name of your project? (Required)',
             validate: nameInput => {
                 if (nameInput){
                     return true;
@@ -147,25 +147,5 @@ promptUser()
             if (err) throw new Error(err);
 
             console.log('Page created! Check out index.html to see it!');
-
             });
     });
-
-
-
-// const pageHTML = generatePage(name, github);
-
-// // create/replace specified file (set to replace using './index.html' which is a newly created file)
-// fs.writeFile('./index.html', generatePage(name, github), err => {
-//     if (err) throw err;
-
-//     console.log('Portfolio complete! Check out index.html to see the output!');
-// });
-
-// // using a single arguement of 2 is the same as writing (2, profileDataArgs.length)
-// const profileDataArgs = process.argv.slice(2);
-
-// // destructured assignment
-// const [name, github] = profileDataArgs;
-
-
